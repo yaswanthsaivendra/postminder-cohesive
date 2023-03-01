@@ -189,7 +189,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://sub.example.com",
     "http://localhost:3000",
     "http://127.0.0.1:9000",
-    "https://postminder-frontend-yaswanthsaivendra-79cu.live.cohesive.so/",
+    "https://postminder-frontend-yaswanthsaivendra-79cu.live.cohesive.so",
 ]
 CORS_ALLOW_CREDENTIALS = True
 
