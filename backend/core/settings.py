@@ -214,10 +214,15 @@ REDIRECT_URIS = [
     "http://localhost:8080",
     "http://localhost:8000",
     "http://localhost:8000/oauth2callback",
-    "http://127.0.0.1:8000/youtube_auth/oauth2callback/"
+    "http://127.0.0.1:8000/youtube_auth/oauth2callback/",
+    "http://localhost:3000",
+    "http://localhost",
+    "http://localhost:3000/callback",
+    "https://postminder-frontend-yaswanthsaivendra-79cu.live.cohesive.so/youtube_auth/oauth2callback/"
     ],
 JAVASCRIPT_ORIGINS = [
-    "http://localhost"
+    "http://localhost",
+    "https://postminder-frontend-yaswanthsaivendra-79cu.live.cohesive.so"
     ]
 
 CLIENT_SECRETS_FILE = 'client_secret.json'
