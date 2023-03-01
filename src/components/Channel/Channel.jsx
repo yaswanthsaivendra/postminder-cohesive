@@ -2,8 +2,9 @@ import { Dropdown, Tabs } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { BsFillCalendarFill, BsFillClockFill } from "react-icons/bs";
 import moment from "moment";
-import { getAxios } from '../../scripts/sdk-client';
-const axios = getAxios()
+import { getAxiosForPostminder } from "../../scripts/post-minder-axios";
+const axios = getAxiosForPostminder()
+
 
 const Channel = ({authorized}) => {
   const [channelDetails, setChannelDetails] = useState({});
@@ -12,12 +13,12 @@ const Channel = ({authorized}) => {
   const [queueCount,setQueueCount] =useState(0)
   const [draftCount,setDraftCount] =useState(0)
   const [liveCount,setLiveCount] =useState(0)
-  
-  
-  
 
 
-  
+
+
+
+
   useEffect(() => {
     const queryParameters = new URLSearchParams(window.location.search);
     const channel_id = queryParameters.get("channel");
@@ -42,7 +43,7 @@ const Channel = ({authorized}) => {
 
     };
     getPosts()
-     
+
   }, [option]);
   return (
     <>
@@ -70,7 +71,7 @@ const Channel = ({authorized}) => {
               Last 60 days
             </option>
             <option value="3">This Year</option>
-            
+
           </select> */}
         </div>
 
@@ -136,7 +137,7 @@ const Channel = ({authorized}) => {
                 </a>
                 <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
                   {post.description}
-                 
+
                 </p>
                 <div class="flex items-center" style={{ maxWidth: "300px" }}>
                   <p className="text-gray-500">Scheduled by:</p>
@@ -172,7 +173,7 @@ const Channel = ({authorized}) => {
               </>
             )
            })}
-           
+
           </Tabs.Item>
           <Tabs.Item title="Drafts ">
           {posts.map((post)=>{
@@ -307,9 +308,9 @@ const Channel = ({authorized}) => {
     </div>
     </>:<>
     <p className="text-secondary">Please add channels</p>
-    
+
     </>}
- 
+
     </>
   );
 };

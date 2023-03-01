@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BsFillClockFill } from "react-icons/bs";
-import { getAxios } from '../../scripts/sdk-client';
-const axios = getAxios()
+import { getAxiosForPostminder } from "../../scripts/post-minder-axios";
+const axios = getAxiosForPostminder()
 
 const Analytics = ({ addedChannels,authorized }) => {
   const [channelDetails, setChannelDetails] = useState([]);
@@ -123,7 +123,7 @@ const Analytics = ({ addedChannels,authorized }) => {
     </></>:<>
     <p className="text-gray-700">Please add channels</p>
     </>}</>
-   
+
   );
 };
 export default Analytics;

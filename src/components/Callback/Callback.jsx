@@ -1,8 +1,9 @@
 import { Modal } from "flowbite-react";
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom";
-import { getAxios } from '../../scripts/sdk-client';
-const axios = getAxios()
+import { getAxiosForPostminder } from "../../scripts/post-minder-axios";
+const axios = getAxiosForPostminder()
+
 
 const Callback = ({setAuthorized})=>{
     const navigate = useNavigate();
@@ -10,17 +11,17 @@ const Callback = ({setAuthorized})=>{
         console.log(window.location.href)
         const sendCode = async () => {
             const res = await axios.post("/youtube_auth/oauth2callback/", {url:window.location.href});
-            
+
             console.log(res);
             if (res.status === 201) {
                 console.log('set authorized to true')
-             
+
 
             }
           };
           sendCode();
     },[])
-    
+
 
     return(
         <>
@@ -36,19 +37,19 @@ const Callback = ({setAuthorized})=>{
                 <span class="sr-only">Close modal</span>
             </button>
             <div class="p-6 text-center">
-               
+
                  <h1 className=" p-1" style={{fontSize:'60px'}}>🎉</h1>
                 <h3 class="mb-5 text-3xl text-center font-normal ">Congratulations!</h3>
                 <p className="texxt-gray-500 p-2">Your account has been successfully linked with Postminder.</p>
-                
+
                 <button data-modal-hide="popup-modal" type="button" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2 flex justify-center items-center my-2" style={{width:'200px'}} onClick={()=>{   setAuthorized(true);
                 navigate('/', { replace: true });}}>
                 Continue
                 </button>
             </div>
         </div>
- 
-  
+
+
   </Modal>
         </>
     )

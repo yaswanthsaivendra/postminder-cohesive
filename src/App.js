@@ -13,15 +13,16 @@ import Login from "./components/Login/Login";
 import Callback from "./components/Callback/Callback";
 import AuthPage from "./components/AuthPage/AuthPage";
 import Integrations from "./components/Integrations/Integrations";
-import { getAxios } from './scripts/sdk-client';
-const axios = getAxios()
+import { getAxiosForPostminder } from "./scripts/post-minder-axios";
+
+const axios = getAxiosForPostminder();
 
 function App() {
   const [channels, setChannels] = useState([]);
   const [auth_url, setAuthUrl] = useState("");
   const [authorized, setAuthorized] = useState(false);
   const [addedChannels, setAddedChannels] =useState([])
-  
+
   useEffect(() => {
     // const getUserInformation = async () => {
     //   const res = await axios.get("/auth/login/");
@@ -54,7 +55,7 @@ function App() {
         console.log(res);
       };
       getAddedChannels()
-      
+
 
     }
   }, [authorized]);
@@ -96,7 +97,7 @@ function App() {
       <BrowserRouter>
         <Routes>
             <>
-              {authorized ? <> 
+              {authorized ? <>
               <Route path="/" element={<Layout addedChannels={addedChannels} authorized={authorized}/>}>
                 <Route
                   index
@@ -120,10 +121,10 @@ function App() {
                 <Route path="tasksassigned" element={<Integrations/>} />
 
 
-                
+
               <Route path="callback" element={<Callback setAuthorized={setAuthorized}/>} />
 
-                
+
               </Route></> :
                <>
               <Route element={<Layout authorized={authorized}/>}>
@@ -132,14 +133,14 @@ function App() {
                 path="*"
                 element={<AuthPage
                   auth_url={auth_url}
-                
+
                 />}
               />
               <Route path="channel" element={<Channel authorized={authorized}/>} />
                 <Route path="analytics" element={<Analytics addedChannels={addedChannels}  authorized={authorized}/>} />
                 <Route path="bulkupload" element={<Bulkupload authorized={authorized}/>} />
               </Route>
-              </>}              
+              </>}
             </>
         </Routes>
       </BrowserRouter>

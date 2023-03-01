@@ -2,8 +2,9 @@ import { Button, Card, Modal } from "flowbite-react";
 import { useState } from "react";
 import React from "react";
 import { Link } from "react-router-dom";
-import { getAxios } from '../../scripts/sdk-client';
-const axios = getAxios()
+import { getAxiosForPostminder } from "../../scripts/post-minder-axios";
+const axios = getAxiosForPostminder()
+
 
 const Dashboard = ({ channels, setChannels, addedChannels,setAddedChannels}) => {
   const [show, setShow] = useState(false);
@@ -25,7 +26,7 @@ const Dashboard = ({ channels, setChannels, addedChannels,setAddedChannels}) => 
         }
       );
       if(res.status=201){
-        
+
       const getAddedChannels = async () => {
         const res = await axios.get("/channels/");
         setAddedChannels(res.data);
@@ -47,7 +48,7 @@ const Dashboard = ({ channels, setChannels, addedChannels,setAddedChannels}) => 
   return (
     <>
       <h2 className="title">Channels</h2>
-    
+
       <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
         {addedChannels.map((channel) => {
           return (
@@ -65,8 +66,8 @@ const Dashboard = ({ channels, setChannels, addedChannels,setAddedChannels}) => 
             </div>
           </div>
             </Link>
-           
-            
+
+
           );
         })}
         <div className="rounded overflow-hidden shadow-lg">

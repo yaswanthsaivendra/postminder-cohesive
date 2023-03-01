@@ -1,4 +1,3 @@
-import axios from "axios";
 import NativeAxios from "axios";
 
 //* async fn calls internal---------------------------------------------------------------
@@ -110,7 +109,7 @@ export const getAxios = () => {
   if (isProd) {
     return Axios;
   } else {
-    return axios;
+    return NativeAxios;
   }
 };
 
