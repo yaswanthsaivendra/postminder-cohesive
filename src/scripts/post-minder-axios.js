@@ -8,7 +8,6 @@ export function getAxiosForPostminder(){
         return postMinderAxios;
     }
     postMinderAxios = getAxios();
-    postMinderAxios = postMinderAxios.create({baseURL : "https://postminder-backend-yaswanthsaivendra-79cu.live.cohesive.so"})
-    console.log(process.env)
+    postMinderAxios.defaults.baseURL = "http://127.0.0.1:8000/";
     return postMinderAxios;
 }

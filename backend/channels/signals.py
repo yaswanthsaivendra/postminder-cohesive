@@ -10,6 +10,6 @@ from .cron import overall_analytics
 @receiver(post_save, sender=Credential)
 def create_user_analytics(sender, instance, created, **kwargs):
     if created:
-        user_analytics = UserAnalytics.objects.create(user=instance.user)
+        user_analytics = UserAnalytics.objects.create(user=instance)
         user_analytics.save()
         overall_analytics(user_analytics)

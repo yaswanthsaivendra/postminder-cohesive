@@ -36,7 +36,8 @@ class PostCreateView(APIView):
 
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            serializer.save(scheduled_by=self.request.user)
+            user_credential = Credential.objects.filter(cohesive_instance_id=self.request.auth_details.instance_id).first()
+            serializer.save(scheduled_by=user_credential)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -47,12 +48,12 @@ class PostListView(
     ListModelMixin,
     ):
 
-    permission_classes = [IsAuthenticated]
     serializer_class = PostSerializer
 
     def get_queryset(self):
         channel_id = self.kwargs['channel_id']
-        return Post.objects.filter(scheduled_by=self.request.user).filter(channel=channel_id).order_by('-uploaded_at')
+        user_credential = Credential.objects.filter(cohesive_instance_id=self.request.auth_details.instance_id).first()
+        return Post.objects.filter(scheduled_by=user_credential).filter(channel=channel_id).order_by('-uploaded_at')
 
     def get(self, request:Request, *args, **kwargs):
 
@@ -78,7 +79,8 @@ class PostRetrieveUpdateDeleteView(
     serializer_class = PostSerializer
 
     def get_queryset(self):
-        return Post.objects.filter(scheduled_by=self.request.user)
+        user_credential = Credential.objects.filter(cohesive_instance_id=self.request.auth_details.instance_id).first()
+        return Post.objects.filter(scheduled_by=user_credential)
 
     def get(self, request:Request, *args, **kwargs):
         

@@ -5,7 +5,6 @@ import moment from "moment";
 import { getAxiosForPostminder } from "../../scripts/post-minder-axios";
 const axios = getAxiosForPostminder()
 
-
 const Channel = ({authorized}) => {
   const [channelDetails, setChannelDetails] = useState({});
   const [option,setOption] = useState(1);
@@ -13,12 +12,9 @@ const Channel = ({authorized}) => {
   const [queueCount,setQueueCount] =useState(0)
   const [draftCount,setDraftCount] =useState(0)
   const [liveCount,setLiveCount] =useState(0)
-
-
-
-
-
-
+  
+  
+  
   useEffect(() => {
     const queryParameters = new URLSearchParams(window.location.search);
     const channel_id = queryParameters.get("channel");
@@ -43,7 +39,7 @@ const Channel = ({authorized}) => {
 
     };
     getPosts()
-
+     
   }, [option]);
   return (
     <>
@@ -71,7 +67,7 @@ const Channel = ({authorized}) => {
               Last 60 days
             </option>
             <option value="3">This Year</option>
-
+            
           </select> */}
         </div>
 
@@ -137,17 +133,17 @@ const Channel = ({authorized}) => {
                 </a>
                 <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
                   {post.description}
-
+                 
                 </p>
                 <div class="flex items-center" style={{ maxWidth: "300px" }}>
                   <p className="text-gray-500">Scheduled by:</p>
-                  <p class="font-normal text-gray-500 dark:text-gray-400 flex items-center p-2">
-                    <img
+                  <p class="font-normal text-gray-500 dark:text-gray-400 flex items-center">
+                    {/* <img
                       class="w-8 h-8  rounded-full"
                       src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
                       alt="Rounded avatar"
-                    />
-                    <p className="px-2">{post.scheduled_by}</p>
+                    /> */}
+                    <p className="px-1">{post.scheduled_by}</p>
                   </p>
                 </div>
               </div>
@@ -173,7 +169,7 @@ const Channel = ({authorized}) => {
               </>
             )
            })}
-
+           
           </Tabs.Item>
           <Tabs.Item title="Drafts ">
           {posts.map((post)=>{
@@ -307,10 +303,15 @@ const Channel = ({authorized}) => {
       </div>
     </div>
     </>:<>
-    <p className="text-secondary">Please add channels</p>
-
+    <div className="w-100 flex justify-center items-center " style={{height:'80vh'}}>
+            <div className='flex items-center justify-center w-100 flex-col mr-5 pr-5'>
+              <h4 className='text-center my-2'>Please add a channel, in order to access the analytics!</h4>
+              <button className='text-white bg-blue-700 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mx-3 '>Add a Youtube Channel</button>
+            </div>
+        </div>
+    
     </>}
-
+ 
     </>
   );
 };

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { BsFillClockFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 import { getAxiosForPostminder } from "../../scripts/post-minder-axios";
 const axios = getAxiosForPostminder()
 
@@ -121,7 +122,14 @@ const Analytics = ({ addedChannels,authorized }) => {
         </div>
       </div>
     </></>:<>
-    <p className="text-gray-700">Please add channels</p>
+    <div className="w-100 flex justify-center items-center " style={{height:'80vh'}}>
+            <div className='flex items-center justify-center w-100 flex-col mr-5 pr-5'>
+              <h4 className='text-center text-3xl my-5'>Please add a channel, in order to access the analytics!</h4>
+              <Link to="/">
+              <button className='text-white bg-blue-700 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mx-3 pb-5'>Add a Youtube Channel</button>
+              </Link>
+            </div>
+        </div>
     </>}</>
 
   );

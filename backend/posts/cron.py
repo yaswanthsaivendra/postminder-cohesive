@@ -1,4 +1,3 @@
-
 import logging
 import http.client
 import httplib2
@@ -20,7 +19,7 @@ import boto3
 
 
 # Set up logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, filename='app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
 
 # Explicitly tell the underlying HTTP transport library not to retry, since
 # we are handling retry logic ourselves.
@@ -53,8 +52,8 @@ def upload_posts():
     current_time = datetime.now(utc)
     for post in posts:
         scheduled_time = post.scheduled_at
-        max_time = post.scheduled_at + timedelta(minutes=5)
-        if scheduled_time <= current_time and current_time <= max_time and  post.upload_status=='SCHEDULED':
+        # max_time = post.scheduled_at + timedelta(minutes=5)
+        if scheduled_time <= current_time and  post.upload_status=='SCHEDULED':
             upload_post(post)
 
 
@@ -63,8 +62,8 @@ def upload_posts():
 def upload_post(post):
     logging.info(f"Uploading post with ID {post.id}...")
     
-    user = post.scheduled_by
-    user_credentials = Credential.objects.filter(user=user).first() 
+    user_id = post.scheduled_by.cohesive_user_id
+    user_credentials = Credential.objects.filter(cohesive_user_id=user_id).first() 
     post_tags = Tag.objects.filter(post=post)
 
 

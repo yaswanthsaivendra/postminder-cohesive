@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import Post, Tag
-from django.contrib.auth.models import User
 
 
 
@@ -14,7 +13,7 @@ class TagSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True, required=False)
-    scheduled_by = serializers.ReadOnlyField(source='scheduled_by.username')
+    scheduled_by = serializers.ReadOnlyField(source='scheduled_by.cohesive_user_name')
 
     class Meta:
         model = Post

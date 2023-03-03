@@ -19,7 +19,6 @@ from cohesive.auth import AuthDetails
 
 
 
-
 @api_view(['GET',])
 # @permission_classes([]) 
 def authorize(request):
@@ -27,7 +26,7 @@ def authorize(request):
     if not isinstance(request.auth_details, AuthDetails):
         return Response({"error": "no auth details found"}, status=401)
         
-    user_credentials = Credential.objects.filter(user=request.user).first()
+    user_credentials = Credential.objects.filter(cohesive_instance_id=request.auth_details.instance_id).first()
     
 
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
@@ -36,7 +35,7 @@ def authorize(request):
     )
     # flow.redirect_uri = request.build_absolute_uri(reverse('oauth2callback'))
 
-    flow.redirect_uri = 'http://localhost:3000/callback'
+    flow.redirect_uri = settings.REDIRECT_URI
     authorization_url, state = flow.authorization_url(
         access_type='offline',
         include_granted_scopes='true'
@@ -74,7 +73,7 @@ def oauth2callback(request:Request):
             )
 
         # flow.redirect_uri = request.build_absolute_uri(reverse('oauth2callback'))
-        flow.redirect_uri = 'http://localhost:3000/callback'
+        flow.redirect_uri = settings.REDIRECT_URI
 
         # authorization_response = request.build_absolute_uri()
         authorization_response = auth_url
@@ -85,7 +84,11 @@ def oauth2callback(request:Request):
         credentials = flow.credentials
 
         user_credentials = Credential(
-            user = request.user,
+            cohesive_instance_id=request.auth_details.instance_id,
+            cohesive_user_id=request.auth_details.user_id,
+            cohesive_user_name=request.auth_details.user_name,
+            cohesive_workspace_id=request.auth_details.workspace_id,
+            cohesive_workspace_name=request.auth_details.workspace_name,
             token=credentials.token,
             refresh_token=credentials.refresh_token
         )
@@ -110,12 +113,10 @@ def authorizeuser(request:Request, *args, **kwargs):
             return Response({"error": "no auth details found"}, status=401)
 
 
-        print(request.POST)
         user_credentials = Credential(
             user = request.user,
             token= request.data.get("access_token", ""),
     )
-        print(user_credentials.token)
         user_credentials.save()
         return redirect(reverse("retrieve-youtube-channels"))
 
@@ -132,8 +133,8 @@ class RetrieveYoutubeChannels(APIView):
             return Response({"error": "no auth details found"}, status=401)
 
 
-        user_credentials = Credential.objects.filter(user=request.user).first()
-        user_channels = Channel.objects.filter(creator=request.user)
+        user_credentials = Credential.objects.filter(cohesive_instance_id=request.auth_details.instance_id).first()
+        user_channels = Channel.objects.filter(creator=user_credentials)
 
         credentials = google.oauth2.credentials.Credentials(
             token = user_credentials.token, 

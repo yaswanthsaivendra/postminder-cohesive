@@ -19,7 +19,7 @@ def update_channel_analytics():
 
 def channel_analytics(channel):
 
-    user_credentials = Credential.objects.filter(user=channel.creator).first() 
+    user_credentials = Credential.objects.filter(cohesive_user_id=channel.creator.cohesive_user_id).first() 
 
     credentials = google.oauth2.credentials.Credentials(
         token = user_credentials.token, 
@@ -81,7 +81,7 @@ def update_user_analytics():
 
 
 def overall_analytics(useranalytics):
-    user_credentials = Credential.objects.filter(user=useranalytics.user).first() 
+    user_credentials = Credential.objects.filter(cohesive_user_id=useranalytics.user.cohesive_user_id).first() 
     user_channels = Channel.objects.filter(creator=useranalytics.user)
 
 

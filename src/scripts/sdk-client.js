@@ -11,7 +11,8 @@ function uuidv4() {
 
 let isProd =
   process.env.NEXT_PUBLIC_COHESIVE_SDK_ENVIRONMENT === "prod" ||
-  process.env.NEXT_PUBLIC_COHESIVE_SDK_ENVIRONMENT === "";
+  process.env.NEXT_PUBLIC_COHESIVE_SDK_ENVIRONMENT === "" ||
+  process.env.NEXT_PUBLIC_COHESIVE_SDK_ENVIRONMENT === undefined;
 
 //client to wire web calling function
 function makeAjaxCall(command) {
@@ -105,7 +106,7 @@ Axios.interceptors.request.use(async (config) => {
   return config;
 });
 
-export const getAxios = () => {
+export function getAxios ()  {
   if (isProd) {
     return Axios;
   } else {

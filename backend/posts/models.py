@@ -1,6 +1,6 @@
 from django.db import models
 from channels.models import Channel
-from django.contrib.auth.models import User
+from youtube_auth.models import Credential
 from django.core.files.storage import default_storage
 
 # Create your models here.
@@ -25,7 +25,7 @@ class Post(models.Model):
     ]
     
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE)
-    scheduled_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    scheduled_by = models.ForeignKey(Credential, on_delete=models.CASCADE)
     title = models.CharField(max_length=300, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     thumbnail = models.FileField(upload_to='thumbnails/', null=True, blank=True)

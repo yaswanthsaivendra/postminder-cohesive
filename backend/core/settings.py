@@ -49,7 +49,7 @@ import cohesive_django
 cohesive_django.app_label = 'postminder'
 
 
-# reporting usage 
+# reporting usage
 # import cohesive_django.usage as usage
 
 # usage.track_usage(
@@ -183,13 +183,14 @@ MEDIA_URL = '/media/'
 
 
 
-##  CORS 
+##  CORS
 CORS_ALLOWED_ORIGINS = [
     "https://example.com",
     "https://sub.example.com",
     "http://localhost:3000",
     "http://127.0.0.1:9000",
-    "https://postminder-frontend-yaswanthsaivendra-79cu.live.cohesive.so",
+    "https://postminder-frontend-apps-by-cohesive-0fyz.live.cohesive.so",
+    "https://cohesive.so",
 ]
 CORS_ALLOW_CREDENTIALS = True
 
@@ -208,22 +209,15 @@ API_VERSION= "v3"
 SCOPES = [
     'https://www.googleapis.com/auth/youtube',
     ]
-AUTH_URI = "https://accounts.google.com/o/oauth2/auth"
 
 REDIRECT_URIS = [
     "http://localhost:8080",
     "http://localhost:8000",
     "http://localhost:8000/oauth2callback",
-    "http://127.0.0.1:8000/youtube_auth/oauth2callback/",
-    "http://localhost:3000",
-    "http://localhost",
-    "http://localhost:3000/callback",
-    "https://postminder-frontend-yaswanthsaivendra-79cu.live.cohesive.so/youtube_auth/oauth2callback/"
+    "http://127.0.0.1:8000/youtube_auth/oauth2callback/"
     ],
-JAVASCRIPT_ORIGINS = [
-    "http://localhost",
-    "https://postminder-frontend-yaswanthsaivendra-79cu.live.cohesive.so"
-    ]
+REDIRECT_URI = "https://cohesive.so/apps/localtesting/callback"
+
 
 CLIENT_SECRETS_FILE = 'client_secret.json'
 

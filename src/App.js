@@ -129,6 +129,10 @@ function App() {
                <>
               <Route element={<Layout authorized={authorized}/>}>
               <Route path="callback" element={<Callback setAuthorized={setAuthorized}/>} />
+              <Route path="integrations" element={<Integrations/>} />
+              <Route path="manageteam" element={<Integrations/>} />
+              <Route path="calender" element={<Integrations/>} />
+              <Route path="tasksassigned" element={<Integrations/>} />
               <Route
                 path="*"
                 element={<AuthPage
